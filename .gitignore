@@ -43,3 +43,6 @@ build
 # Misc
 *.tsbuildinfo
 .npmrc
+
+# Local Netlify folder
+.netlify
