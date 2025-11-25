@@ -13,7 +13,7 @@ Interaktive 3D-Visualisierung globaler CO₂-Emissionen von 1970 bis 2024.
 
 ## Screenshot
 
-![CO₂ Globe](./public/images/co2-globe.iml.jpg)
+![CO₂ Globe](./screenshot.png)
 
 ## Installation
 
@@ -67,7 +67,6 @@ co2-globe/
 │   └── App.tsx        # Haupt-App
 ├── public/            # Statische Assets
 ├── co2.csv           # Rohdaten (EDGAR)
-└── ATTRIBUTION.md    # Detaillierte Quellenangaben
 ```
 
 ## Lizenz

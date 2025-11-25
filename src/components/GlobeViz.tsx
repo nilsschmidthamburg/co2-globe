@@ -31,15 +31,54 @@ interface GlobeVizProps {
   viewMode: 'country' | 'continent';
   dataMode: 'absolute' | 'perCapita';
   onHover: (data: any | null, x: number, y: number) => void;
+  isPlaying: boolean;
 }
 
-export function GlobeViz({ data, year, viewMode, dataMode, onHover }: GlobeVizProps) {
+export function GlobeViz({ data, year, viewMode, dataMode, onHover, isPlaying }: GlobeVizProps) {
   const globeEl = useRef<GlobeMethods | undefined>(undefined);
   const [countries, setCountries] = useState<any>({ features: [] });
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  // Set initial viewpoint and enable autorotation
+  useEffect(() => {
+    if (!globeEl.current) return;
+
+    // Set initial point of view
+    globeEl.current.pointOfView({ lat: 32, lng: 8, altitude: 1.8 }, 0);
+
+    const controls = globeEl.current.controls();
+    if (controls) {
+      // Enable autorotation
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = -0.5; // Adjust speed (positive = counter-clockwise)
+
+      // Stop autorotation on user interaction
+      const stopAutoRotate = () => {
+        if (controls.autoRotate) {
+          controls.autoRotate = false;
+        }
+      };
+
+      controls.addEventListener('start', stopAutoRotate);
+
+      return () => {
+        controls.removeEventListener('start', stopAutoRotate);
+      };
+    }
+  }, [countries]); // Run after countries are loaded to ensure globe is ready
+
+  // Restart autorotation when playback starts
+  useEffect(() => {
+    if (!globeEl.current || !isPlaying) return;
+
+    const controls = globeEl.current.controls();
+    if (controls && !controls.autoRotate) {
+      controls.autoRotate = true;
+    }
+  }, [isPlaying]);
 
   // Load Medium Res GeoJSON (50m - balanced detail and performance)
   useEffect(() => {

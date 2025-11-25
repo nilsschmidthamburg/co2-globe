@@ -30,6 +30,17 @@ function App() {
     }, 800);
   }, []);
 
+  // Auto-start playback after 5 seconds
+  useEffect(() => {
+    if (!loading) {
+      const autoStartTimer = setTimeout(() => {
+        setIsPlaying(true);
+      }, 1000);
+
+      return () => clearTimeout(autoStartTimer);
+    }
+  }, [loading]);
+
   // Reset to start year when resuming from end
   useEffect(() => {
     if (isPlaying && currentYear >= yearRange[1]) {
@@ -268,6 +279,7 @@ function App() {
         viewMode={viewMode}
         dataMode={dataMode}
         onHover={handleHover}
+        isPlaying={isPlaying}
       />
 
       {/* Legend */}
