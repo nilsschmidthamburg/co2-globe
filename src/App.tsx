@@ -4,7 +4,7 @@ import { ControlPanel } from './components/ControlPanel';
 import { Tooltip } from './components/Tooltip';
 import { Legend } from './components/Legend';
 import { co2Data, getYearRange, CO2Data } from './lib/co2-data';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Github } from 'lucide-react';
 
 function App() {
   // State
@@ -243,8 +243,21 @@ function App() {
         </p>
       </div>
 
-      {/* Data Source Attribution */}
-      <div className="absolute bottom-4 right-4 z-10 pointer-events-auto">
+      {/* GitHub Link and Data Source Attribution */}
+      <div className="absolute bottom-4 right-4 z-10 pointer-events-auto flex flex-col items-end gap-2">
+        {/* GitHub Link */}
+        <a
+          href="https://github.com/nilsschmidthamburg/co2-globe"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-slate-900/80 backdrop-blur-sm p-3 rounded-lg border border-slate-800 text-xs text-slate-400 shadow-xl max-w-sm flex items-center gap-2"
+          title="Auf GitHub anzeigen"
+        >
+          <Github className="w-4 h-4" />
+          Auf github.com anzeigen
+        </a>
+
+        {/* Data Source */}
         <div className="bg-slate-900/80 backdrop-blur-sm p-3 rounded-lg border border-slate-800 text-xs text-slate-400 shadow-xl max-w-sm">
           <div className="mb-1">
             <span className="font-semibold text-slate-300">Datenquelle:</span>{' '}
